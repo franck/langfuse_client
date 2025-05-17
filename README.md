@@ -7,8 +7,6 @@
 
 > ✅ Built for use in Rails apps, but works in any Ruby project.
 
----
-
 ## ⚠️  Disclaimer
 
 This is an **unofficial gem**, not affiliated with the Langfuse team.
@@ -17,20 +15,17 @@ If Langfuse releases an official Ruby SDK, consider migrating when stable.
 
 This gem is for my own usage, maintenance will be minimal.
 
----
-
 ## Installation
 
+```ruby
 gem "langfuse_client"
-
-
----
+```
 
 ## Configuration
 
 Set these environment variables in your Rails app or .env file:
 
-```
+```ruby
 LANGFUSE_DOMAIN=http://localhost:3001        # or https://cloud.langfuse.com
 LANGFUSE_API_PATH=/api/public
 LANGFUSE_PUBLIC_KEY=your_public_key
@@ -43,7 +38,7 @@ LANGFUSE_SECRET_KEY=your_secret_key
 
 ### Log span
 
-```
+```ruby
 Langfuse.logger.log_span(
   trace_id:   SecureRandom.uuid,
   name:       "ai_response",
@@ -60,7 +55,7 @@ Langfuse.logger.log_span(
 
 Fetch the prompt by name and label (optional) :
 
-```
+```ruby
 prompt = Langfuse.prompts.fetch(name: "stress_coach", label: "production")
 template = prompt[:prompt] # => "Hello {{name}}, let's talk about {{topic}}."
 ```
@@ -70,7 +65,7 @@ If using variables in prompt, you will need to replace them with your own data. 
 
 Prompt compiler example :
 
-```
+```ruby
 module PromptCompiler
   # Replaces {{var}} tokens with supplied values.
   def self.compile(template, vars = {})
@@ -84,14 +79,14 @@ end
 
 Then :
 
-```
+```ruby
 filled = PromptCompiler.compile(template, name: "Alex", topic: "stress")
 ```
 
 ### End-to-End example
 
 
-```
+```ruby
 class AiCompanionService
   def initialize(user:)
     @user = user
